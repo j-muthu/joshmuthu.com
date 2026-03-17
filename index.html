@@ -9,6 +9,13 @@
 		#art {
 			cursor: pointer;
 			user-select: none;
+			height: 300px;
+			max-width: 70vw;
+			overflow: hidden;
+			display: flex;
+			align-items: flex-start;
+			justify-content: flex-start;
+			line-height: 1.2;
 		}
 	</style>
 </head>
@@ -29,25 +36,54 @@
 <script>
 let arts = [];
 let idx = 0;
+const BASE_FONT_SIZE = 16;
 
 fetch('art.txt')
 	.then(r => r.text())
 	.then(text => {
 		text = text.replace(/\r\n/g, '\n');
-		// there should be exactly 3 newlines between each art piece
 		arts = text.split(/\n\n\n\n/)
 			.map(p => p.replace(/^([ \t]*\n)+/, '').replace(/(\n[ \t]*)+$/, ''))
 			.filter(p => p.length > 0);
 		idx = Math.floor(Math.random() * arts.length);
-		document.getElementById('art').textContent = arts[idx];
+		displayArt(idx);
 	});
+
+function displayArt(i) {
+	const el = document.getElementById('art');
+	// Render at base size with shrink-wrap to measure actual text dimensions
+	el.style.fontSize = BASE_FONT_SIZE + 'px';
+	el.style.overflow = 'visible';
+	el.style.height = 'auto';
+	el.style.maxWidth = 'none';
+	el.style.width = 'fit-content';
+	el.textContent = arts[i];
+
+	const naturalW = el.scrollWidth;
+	const naturalH = el.scrollHeight;
+
+	// Restore container constraints
+	el.style.overflow = 'hidden';
+	el.style.height = '300px';
+	el.style.maxWidth = '70vw';
+	el.style.width = '100%';
+
+	const containerH = 300;
+	const containerW = el.clientWidth;
+
+	const scaleW = containerW / naturalW;
+	const scaleH = containerH / naturalH;
+	const fontSize = BASE_FONT_SIZE * Math.min(scaleW, scaleH);
+
+	el.style.fontSize = fontSize + 'px';
+}
 
 function cycleArt() {
 	if (arts.length <= 1) return;
 	let next;
 	do { next = Math.floor(Math.random() * arts.length); } while (next === idx);
 	idx = next;
-	document.getElementById('art').textContent = arts[idx];
+	displayArt(idx);
 }
 </script>
 </body>
