@@ -6,23 +6,23 @@
 		Josh Muthu
 	</title>
 	<style>
-		#art {
-			cursor: pointer;
-			user-select: none;
+		#art-container {
 			height: 300px;
 			max-width: 70vw;
 			overflow: hidden;
-			display: flex;
-			align-items: flex-start;
-			justify-content: flex-start;
+		}
+		#art {
+			cursor: pointer;
+			user-select: none;
 			line-height: 1.2;
+			margin: 0;
 		}
 	</style>
 </head>
 
 <body>
 	<main>
-		<pre id="art" onclick="cycleArt()"></pre>
+		<div id="art-container"><pre id="art" onclick="cycleArt()"></pre></div>
 		<br><br>
 		<h2>===Links===</h2>
 		<ul>
@@ -51,25 +51,17 @@ fetch('art.txt')
 
 function displayArt(i) {
 	const el = document.getElementById('art');
-	// Render at base size with shrink-wrap to measure actual text dimensions
+	const container = document.getElementById('art-container');
+
+	// Render at base size to measure natural text dimensions
 	el.style.fontSize = BASE_FONT_SIZE + 'px';
-	el.style.overflow = 'visible';
-	el.style.height = 'auto';
-	el.style.maxWidth = 'none';
-	el.style.width = 'fit-content';
 	el.textContent = arts[i];
 
 	const naturalW = el.scrollWidth;
 	const naturalH = el.scrollHeight;
 
-	// Restore container constraints
-	el.style.overflow = 'hidden';
-	el.style.height = '300px';
-	el.style.maxWidth = '70vw';
-	el.style.width = '100%';
-
-	const containerH = 300;
-	const containerW = el.clientWidth;
+	const containerH = container.clientHeight;
+	const containerW = container.clientWidth;
 
 	const scaleW = containerW / naturalW;
 	const scaleH = containerH / naturalH;
