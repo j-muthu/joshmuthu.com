@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="icon" type="image/png" href="favicon.png">
+	<title>
+		Josh Muthu
+	</title>
+	<style>
+		#art {
+			cursor: pointer;
+			user-select: none;
+		}
+	</style>
+</head>
+
+<body>
+	<main>
+		<pre id="art" onclick="cycleArt()"></pre>
+		<br><br><br>
+		<h2>===Links===</h2>
+		<ul>
+			<li><a href="https://x.com/joshua_muthu">Twitter</a></li>
+			<li><a href="https://www.linkedin.com/in/joshuamuthu/">LinkedIn</a></li>
+			<li><a href="https://joshuamuthu.substack.com/">Substack</a></li>
+			<li><a href="https://curius.app/joshua-muthu">Curius</a></li>
+		</ul>
+	</main>
+
+<script>
+let arts = [];
+let idx = 0;
+
+fetch('art.txt')
+	.then(r => r.text())
+	.then(text => {
+		text = text.replace(/\r\n/g, '\n');
+		// there should be exactly 3 newlines between each art piece
+		arts = text.split(/\n\n\n\n/)
+			.map(p => p.replace(/^([ \t]*\n)+/, '').replace(/(\n[ \t]*)+$/, ''))
+			.filter(p => p.length > 0);
+		idx = Math.floor(Math.random() * arts.length);
+		document.getElementById('art').textContent = arts[idx];
+	});
+
+function cycleArt() {
+	if (arts.length <= 1) return;
+	let next;
+	do { next = Math.floor(Math.random() * arts.length); } while (next === idx);
+	idx = next;
+	document.getElementById('art').textContent = arts[idx];
+}
+</script>
+</body>
+
+</html>
