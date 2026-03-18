@@ -11,12 +11,26 @@
 			max-width: 70vw;
 			overflow: hidden;
 			margin: 0 auto;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 		#art {
 			cursor: pointer;
 			user-select: text;
 			line-height: 1.2;
 			margin: 0;
+			display: inline-block;
+			text-align: left;
+		}
+		main {
+			text-align: center;
+		}
+		ul {
+			display: inline-block;
+			text-align: left;
+			padding: 0;
+			margin-top: 0;
 		}
 	</style>
 </head>
@@ -24,9 +38,8 @@
 <body>
 	<main>
 		<div id="art-container"><pre id="art" onclick="cycleArt()"></pre></div>
-		<h2 style="text-align: center;">Josh Muthu</h2>
-		<br><br>
-		<h2>===Links===</h2>
+		<h2>Josh Muthu</h2>
+		<h2 style="margin-bottom: 0;">=== Links ===</h2>
 		<ul>
 			<li><a href="https://x.com/joshua_muthu">Twitter</a></li>
 			<li><a href="https://www.linkedin.com/in/joshuamuthu/">LinkedIn</a></li>
