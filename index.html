@@ -53,16 +53,23 @@ let arts = [];
 let idx = 0;
 const BASE_FONT_SIZE = 16;
 
-fetch('art.txt')
-	.then(r => r.text())
-	.then(text => {
-		text = text.replace(/\r\n/g, '\n');
-		arts = text.split(/\n\n\n\n/)
-			.map(p => p.replace(/^([ \t]*\n)+/, '').replace(/(\n[ \t]*)+$/, ''))
-			.filter(p => p.length > 0);
-		idx = Math.floor(Math.random() * arts.length);
-		displayArt(idx);
-	});
+const artFiles = [
+	'alligator', 'alpha', 'ansi_compact', 'arabic', 'armenian', 'aurebesh',
+	'big', 'big_money_nw', 'blurvision_ascii', 'cherokee', 'coder_mini',
+	'coptic', 'cuneiform', 'cyrillic', 'devanagari', 'doh', 'doom',
+	'elder_futhark', 'fire_font_k', 'fraktur', "ge'ez", 'glagolitic',
+	'hebrew', 'hieroglyphs', 'kannada', 'katakana', 'mandalorian',
+	'mkhedruli', 'roman', 'simplified_chinese', 'slant_relief', 'tamil',
+	'tengwar_annatar', 'tengwar_artano', 'terrace', 'univers', 'younger_futhark'
+];
+
+Promise.all(artFiles.map(name =>
+	fetch('text_art/' + name + '.txt').then(r => r.text())
+)).then(texts => {
+	arts = texts.map((t, i) => ({ text: t, name: artFiles[i] })).filter(a => a.text.trim().length > 0);
+	idx = Math.floor(Math.random() * arts.length);
+	displayArt(idx);
+});
 
 function displayArt(i) {
 	const el = document.getElementById('art');
@@ -70,7 +77,8 @@ function displayArt(i) {
 
 	// Render at base size to measure natural text dimensions
 	el.style.fontSize = BASE_FONT_SIZE + 'px';
-	el.textContent = arts[i];
+	el.textContent = arts[i].text;
+	el.title = arts[i].name;
 
 	const naturalW = el.scrollWidth;
 	const naturalH = el.scrollHeight;
