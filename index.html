@@ -10,9 +10,8 @@
 			height: 300px;
 			max-width: 70vw;
 			overflow: hidden;
-			margin: 0 auto;
 			display: flex;
-			justify-content: center;
+			justify-content: flex-start;
 			align-items: center;
 		}
 		#art {
@@ -24,12 +23,10 @@
 			text-align: left;
 		}
 		main {
-			text-align: center;
-		}
-		ul {
-			display: inline-block;
 			text-align: left;
-			padding: 0;
+		}
+		.links ul {
+			padding-left: 1.5em;
 			margin-top: 0;
 		}
 	</style>
@@ -39,15 +36,17 @@
 	<main>
 		<div id="art-container"><pre id="art" onclick="cycleArt()"></pre></div>
 		<h2>Josh Muthu</h2>
-		<h2 style="margin-bottom: 0;">=== Links ===</h2>
-		<ul>
-			<li><a href="https://www.linkedin.com/in/joshuamuthu/">LinkedIn</a></li>
-			<li><a href="https://joshuamuthu.substack.com/">Substack</a></li>
-			<li><a href="https://github.com/j-muthu">GitHub</a></li>
-			<li><a href="https://x.com/joshua_muthu">Twitter</a></li>
-			<li><a href="https://curius.app/joshua-muthu">Curius</a></li>
-			<li><a href="https://urban-growth-england.vercel.app/">What if England's Planning Regulation were Relaxed?</a></li>
-		</ul>
+		<div class="links">
+			<h2 style="margin-bottom: 0;">=== Links ===</h2>
+			<ul>
+				<li><a href="https://www.linkedin.com/in/joshuamuthu/">LinkedIn</a></li>
+				<li><a href="https://joshuamuthu.substack.com/">Substack</a></li>
+				<li><a href="https://github.com/j-muthu">GitHub</a></li>
+				<li><a href="https://x.com/joshua_muthu">Twitter</a></li>
+				<li><a href="https://curius.app/joshua-muthu">Curius</a></li>
+				<li><a href="https://urban-growth-england.vercel.app/">What if England's Planning Regulation were Relaxed?</a></li>
+			</ul>
+		</div>
 	</main>
 
 <script>
